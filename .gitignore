@@ -1,4 +1,5 @@
 /.build
 /bin
+/platforms/windows_vs14_win64
 CMakeLists.txt.user
 .idea
