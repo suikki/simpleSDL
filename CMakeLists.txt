@@ -23,7 +23,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG "${binDir}/${targetSystem}_debug")
 #   NOTE: This means that CMAKE_C_FLAGS set anywhere here are also passed to SDL.
 #
 if(MINGW)
-	set(VIDEO_OPENGLES OFF CACHE STRING "")
+  set(VIDEO_OPENGLES OFF CACHE STRING "")
 endif()
 
 set(sdlDir "${projectDir}/contrib/SDL")
@@ -34,13 +34,13 @@ add_subdirectory(${sdlDir} EXCLUDE_FROM_ALL)
 # Sources (relative to the project root dir).
 #
 file(GLOB_RECURSE projectSources RELATIVE ${projectDir}
-	"${sourceDir}/*.h"
-	"${sourceDir}/*.c"
+  "${sourceDir}/*.h"
+  "${sourceDir}/*.c"
 )
 
 # Include dirs.
 set(projectIncludeDirs ${projectIncludeDirs}
-	"${sdlDir}/include"
+  "${sdlDir}/include"
 )
 
 message("     Sources: ${projectSources}\n")
@@ -52,18 +52,18 @@ message("Include dirs: ${projectIncludeDirs}\n")
 #
 
 if(NOT ANDROID)
-	find_package(OpenGL REQUIRED)
+  find_package(OpenGL REQUIRED)
 endif()
 
 if(MINGW)
-	# -Link standard libs statically to reduce dll clutter.
-	# -lmingw32 is needed to make WinMain not disappear when linking.
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static -static-libgcc -lmingw32")
+  # -Link standard libs statically to reduce dll clutter.
+  # -lmingw32 is needed to make WinMain not disappear when linking.
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static -static-libgcc -lmingw32")
 
-	# Only show the console in debug builds and also strip unused dependencies on MinSizeRel.
-	set(CMAKE_EXE_LINKER_FLAGS_DEBUG "-mconsole")
-	set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-mwindows")
-	set(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL "-mwindows -s")
+  # Only show the console in debug builds and also strip unused dependencies on MinSizeRel.
+  set(CMAKE_EXE_LINKER_FLAGS_DEBUG "-mconsole")
+  set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-mwindows")
+  set(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL "-mwindows -s")
 endif()
 
 #
@@ -71,20 +71,20 @@ endif()
 # -----------------------------------------------------------------------
 #
 if(ANDROID)
-	# On android the final binary is a shared library not an executable.
-	add_library(${targetName} SHARED ${projectSources})
+  # On android the final binary is a shared library not an executable.
+  add_library(${targetName} SHARED ${projectSources})
 else()
-	add_executable(${targetName} ${projectSources})
+  add_executable(${targetName} ${projectSources})
 endif()
 
 target_link_libraries(${targetName}
-	SDL2main
-	SDL2
-	${OPENGL_LIBRARY}
+  SDL2main
+  SDL2
+  ${OPENGL_LIBRARY}
 )
 
 target_include_directories(${targetName}
-	PUBLIC ${projectIncludeDirs}
+  PUBLIC ${projectIncludeDirs}
 )
 
 
