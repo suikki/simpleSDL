@@ -24,8 +24,9 @@ endif()
 
 
 #
-# Using SDL as a subproject for simplicity.
-# NOTE: CMAKE_C_FLAGS set anywhere here are also passed to SDL.
+# Dependencies:
+#   Using SDL as a subproject for simplicity.
+#   NOTE: This means that CMAKE_C_FLAGS set anywhere here are also passed to SDL.
 #
 set(SDL_STATIC OFF CACHE STRING "") # Don't build static SDL lib as this project is using just the dynamic one.
 
@@ -47,7 +48,6 @@ add_subdirectory(${sdlDir})
 file(GLOB_RECURSE projectSources RELATIVE ${projectDir}
 	"${sourceDir}/*.h"
 	"${sourceDir}/*.c"
-	"${sourceDir}/*.cpp"
 )
 
 # Include dirs.
@@ -55,21 +55,20 @@ set(projectIncludeDirs ${projectIncludeDirs}
 	"${sdlDir}/include"
 )
 
-message("Sources: ${projectSources}\n")
+message("     Sources: ${projectSources}\n")
 message("Include dirs: ${projectIncludeDirs}\n")
+
 
 #
 # Platform dependent stuff.
 #
 if(MINGW)
-	# -Create 32-bit executable
 	# -Link standard libs statically to reduce dll clutter.
 	# -lmingw32 is needed to make WinMain not disappear when linking.
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32 -static -static-libstdc++ -lmingw32")
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32 -static -static-libgcc -lmingw32")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -static -static-libgcc -lmingw32")
 
-	# Disable console in release builds and strip unused dependencies.
-	set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-mwindows -s")
+	# Disable console in release builds and also strip unused dependencies on MinSizeRel.
+	set(CMAKE_EXE_LINKER_FLAGS_RELEASE "-mwindows")
 	set(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL "-mwindows -s")
 endif()
 
@@ -93,9 +92,5 @@ target_link_libraries(${targetName}
 target_include_directories(${targetName}
 	PUBLIC ${projectIncludeDirs}
 )
-
-# Not really using C++11 but yeah.
-set_property(TARGET ${targetName} PROPERTY CXX_STANDARD 11)
-set_property(TARGET ${targetName} PROPERTY CXX_STANDARD_REQUIRED ON)
 
 

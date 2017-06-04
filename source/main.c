@@ -7,18 +7,11 @@
 #include <SDL_opengl.h>
 #endif
 
-#include <cstdio>
+#include <stdio.h>
 
-int mainLoop();
 
-extern "C" {
-    int main(int argc, char* argv[]) {
-        return mainLoop();
-    }
-}
-
-static bool done = false;
-static SDL_Window* window = nullptr;
+static int done = 0;
+static SDL_Window* window = NULL;
 static SDL_GLContext glContext;
 
 static float blinking = 0.0f;
@@ -37,18 +30,19 @@ void renderFrame() {
     SDL_GL_SwapWindow(window);
 }
 
-int mainLoop() {
+int main(int argc, char* argv[]) {
+    int width = 640;
+    int height = 480;
+    Uint32 flags = SDL_WINDOW_OPENGL;
+
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0) {
         printf("SDL init failed: %s\n", SDL_GetError());
         SDL_ClearError();
         return 1;
     }
 
-    int width = 640;
-    int height = 480;
-    Uint32 flags = SDL_WINDOW_OPENGL;
     window = SDL_CreateWindow("SimpleSDL", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
-    if (window == nullptr) {
+    if (!window) {
         printf("Creating window failed: %s\n", SDL_GetError());
         SDL_ClearError();
         SDL_Quit();
@@ -56,7 +50,7 @@ int mainLoop() {
     }
 
     glContext = SDL_GL_CreateContext(window);
-    if (glContext == nullptr) {
+    if (!glContext) {
         printf("Creating GL context failed: '%s'.\n", SDL_GetError());
         SDL_ClearError();
         SDL_DestroyWindow(window);
@@ -64,24 +58,24 @@ int mainLoop() {
         return 1;
     }
 
-    printf("Init done.\n");
+    printf("Initialized.\n");
 
     while (!done) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
-                done = true;
+                done = 1;
             }
         }
 
         renderFrame();
-        SDL_Delay(2);
+        SDL_Delay(5);
     }
 
     SDL_GL_DeleteContext(glContext);
     SDL_DestroyWindow(window);
     SDL_Quit();
 
-    printf("Quitting.\n");
+    printf("All done.\n");
     return 0;
 }
