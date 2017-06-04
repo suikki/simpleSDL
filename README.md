@@ -7,7 +7,7 @@ A simple crossplatform libSDL cmake build environment example/test.
 > SDL without modifications.
 
 Tested to build and run successfully with:
-  - Android
+  - Android: ndk-build and gradle+cmake
   - Windows: mingw-w64
   - Windows: Visual Studio 2015
   - Linux (Ubuntu): GCC
