@@ -21,8 +21,8 @@ popd
 :: Build the release version
 if not exist "%BUILD_DIR%" mkdir "%BUILD_DIR%" || goto error
 pushd "%BUILD_DIR%" || goto error
-::call %CMAKE_EXE% -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE:STRING=MinSizeRel "%PROJECT_DIR%" || goto error
-::call %MAKE_EXE% %VERBOSE_BUILD% || goto error_pop
+call %CMAKE_EXE% -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE:STRING=MinSizeRel "%PROJECT_DIR%" || goto error
+call %MAKE_EXE% %VERBOSE_BUILD% || goto error_pop
 popd
 
 goto end
