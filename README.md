@@ -19,7 +19,7 @@ But the main point is to fix SDL cmake support for Android builds.
 Building within Android Studio or with standalone Gradle
 --------------------------------------------------------
 
-> WARNING: I had an issue trying to build SDL using the latest NDK (r14) both
+> NOTE: I had an issue trying to build SDL using the latest NDK (r14) both
 > with ndk-build and gradle (https://github.com/android-ndk/ndk/issues/361).
 > Seems that it's a bug in clang that has been fixed in NDK r15 Beta 2 (that
 > must be currently downloaded manually from the NDK site
@@ -46,14 +46,31 @@ generates when you create a new empty app with native cmake support. Just
 pointing to the CmakeLists.txt in the project root.
 
 
+SDL fix details (all for cmake)
+-------------------------------
+- Fixed some missing CMakeLists.txt android cases and fixed android library
+linking. Fixes https://bugzilla.libsdl.org/show_bug.cgi?id=3509
+
+- SDL_spinlock.c is compiled in ARM mode if the target is an arm processor
+(similarly to the old Android.mk).
+
+- SDL_android_main.c is now properly compiled to the SDLmain.lib (SDLmain is
+statically linked to the user code and SDL is a separate dynamic library).
+
+- Android cmake build was failing when compiled using GCC on arm target. Fixed
+with a patch from Martin Gerhardy https://bugzilla.libsdl.org/show_bug.cgi?id=3267
+(+a minor formatting fix)
+
+- As a whole the patch basically fixes https://bugzilla.libsdl.org/show_bug.cgi?id=3195.
+The android example project in SDL should probably be updated to use gradle still.
 
 Notes
 -----
 
-- All build artifacts are set to go to .build dir except for .externalNativeBuild
-that is created by the android gradle cmake in platforms/android/app.
-There is no way to change the location and it seems the dir needs to be deleted
-sometimes when making changes to the build system (bug
+- All build artifacts are set to go to `.build` dir except for `.externalNativeBuild`
+that is created by the android gradle cmake to `platforms/android/app`.
+There is no way to change its location and it seems the dir needs to be deleted
+sometimes, especially when making changes to the build system (bug
   https://issuetracker.google.com/issues/62264618).
 
 - More discussion about android cmake build in
