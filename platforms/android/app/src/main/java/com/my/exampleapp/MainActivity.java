@@ -15,9 +15,8 @@ public class MainActivity extends org.libsdl.app.SDLActivity {
     @Override
     protected String[] getLibraries() {
         return new String[]{
-                "SDL2main",
                 "SDL2",
-                "MySDLMainActivitiy"
+                "SimpleExample"
         };
     }
 

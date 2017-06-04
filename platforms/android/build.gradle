@@ -15,7 +15,7 @@ buildscript {
 // Instead of having a build dir inside android app dir use the same project top level build dir to reduce clutter
 buildDir = file("/../../.build/${rootProject.name}/${project.name}")
 subprojects {
-	buildDir = file("/../../../.build/${rootProject.name}/${project.name}")
+	buildDir = file("../../../.build/${rootProject.name}/${project.name}")
 }
 
 allprojects {

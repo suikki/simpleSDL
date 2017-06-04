@@ -1,13 +1,15 @@
 @echo off
 :: USAGE:
-:: "build_android" -> builds android debug apk
+:: "build_android" -> builds android apk
 :: "build_android clean" -> Detele previously built object files
 
 setlocal
 set PROJECT_DIR=%~dp0
 set PLATFORM_DIR=%PROJECT_DIR%\platforms\android
 
-set BUILD_TARGETS=assembleDebug
+set BUILD_TARGETS=assemble
+::set BUILD_TARGETS=assembleDebug
+::set BUILD_TARGETS=assembleRelease
 
 if /I "%1" == "clean" goto clean
 
