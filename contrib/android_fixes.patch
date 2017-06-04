@@ -1,20 +1,20 @@
 # HG changeset patch
 # User Olli Kallioinen <olli.kallioinen@iki.fi>
-# Date 1496593503 -10800
-#      Sun Jun 04 19:25:03 2017 +0300
-# Node ID db1cdc9973bf6f9cd5b0e2d592b3f44c79725085
+# Date 1496600757 -10800
+#      Sun Jun 04 21:25:57 2017 +0300
+# Node ID 8fe2772c0f6fe34f7669e2c0002a2b1ae6db7224
 # Parent  a91d5d040223b809360d327bb855096b358d28df
 Android cmake build fixed to work with the official android gradle plugin
 
-diff -r a91d5d040223 -r db1cdc9973bf CMakeLists.txt
+diff -r a91d5d040223 -r 8fe2772c0f6f CMakeLists.txt
 --- a/CMakeLists.txt	Sat Jun 03 23:00:50 2017 +0200
-+++ b/CMakeLists.txt	Sun Jun 04 19:25:03 2017 +0300
++++ b/CMakeLists.txt	Sun Jun 04 21:25:57 2017 +0300
 @@ -137,7 +137,9 @@
  
  # Default option knobs
  if(APPLE OR ARCH_64)
 -  set(OPT_DEF_SSEMATH ON)
-+  if (NOT "${CMAKE_OSX_ARCHITECTURES}" MATCHES "arm")
++  if(NOT "${CMAKE_OSX_ARCHITECTURES}" MATCHES "arm")
 +    set(OPT_DEF_SSEMATH ON)
 +  endif()
  endif()
@@ -95,9 +95,9 @@ diff -r a91d5d040223 -r db1cdc9973bf CMakeLists.txt
      set_target_properties(SDL2 PROPERTIES
        VERSION ${LT_VERSION}
        SOVERSION ${LT_REVISION}
-diff -r a91d5d040223 -r db1cdc9973bf src/main/android/SDL_android_main.c
+diff -r a91d5d040223 -r 8fe2772c0f6f src/main/android/SDL_android_main.c
 --- a/src/main/android/SDL_android_main.c	Sat Jun 03 23:00:50 2017 +0200
-+++ b/src/main/android/SDL_android_main.c	Sun Jun 04 19:25:03 2017 +0300
++++ b/src/main/android/SDL_android_main.c	Sun Jun 04 21:25:57 2017 +0300
 @@ -1,7 +1,9 @@
  /*
      SDL_android_main.c, placed in the public domain by Sam Lantinga  3/13/14
