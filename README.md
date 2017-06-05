@@ -11,6 +11,8 @@ Tested to build and run successfully with:
   - Windows: mingw-w64
   - Windows: Visual Studio 2015
   - Linux (Ubuntu): GCC
+  - Mac: (Just building a simple executable, no bundle)
+  - Emscripten
 
 But the main point is to fix SDL cmake support for Android builds.
 
@@ -79,6 +81,7 @@ https://discourse.libsdl.org/t/sdl2-cmake-android-on-windows/21505/27
 Todo
 ----
 
-- arm64-v8a abi is not compiling. Needs to be fixed in SDL_spinlock.c or with
+- Android: arm64-v8a abi is not compiling. Needs to be fixed in SDL_spinlock.c or with
 some kind of compiler switches.
-- Not tested on mac or iOS.
+- Nicer way to include SDL in a project. Prefereably as some kind of library project
+- iOS build
