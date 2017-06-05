@@ -28,6 +28,8 @@ endif()
 
 set(sdlDir "${projectDir}/contrib/SDL")
 add_subdirectory(${sdlDir} EXCLUDE_FROM_ALL)
+set(SDL2MAIN_LIBRARY SDL2main)
+set(SDL2_LIBRARY SDL2)
 
 
 #
@@ -66,6 +68,14 @@ if(MINGW)
   set(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL "-mwindows -s")
 endif()
 
+if(EMSCRIPTEN)
+  # This makes emscripten build a html page in addition to the js code.
+  set(CMAKE_EXECUTABLE_SUFFIX ".html")
+
+  # Emscripten requires static linking.
+  set(SDL2_LIBRARY SDL2-static)
+endif()
+
 #
 # Build the binary.
 # -----------------------------------------------------------------------
@@ -78,8 +88,8 @@ else()
 endif()
 
 target_link_libraries(${targetName}
-  SDL2main
-  SDL2
+  ${SDL2MAIN_LIBRARY}
+  ${SDL2_LIBRARY}
   ${OPENGL_LIBRARY}
 )
 
