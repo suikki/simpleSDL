@@ -1,11 +1,13 @@
 @echo off
+setlocal
+title=android [building]
+set PROJECT_DIR=%~dp0
+set PLATFORM_DIR=%PROJECT_DIR%\platforms\android
+
 :: USAGE:
 :: "build_android" -> builds android apk
 :: "build_android clean" -> Detele previously built object files
 
-setlocal
-set PROJECT_DIR=%~dp0
-set PLATFORM_DIR=%PROJECT_DIR%\platforms\android
 
 set BUILD_TARGETS=assemble
 ::set BUILD_TARGETS=assembleDebug
@@ -26,6 +28,8 @@ goto end
 
 :error
 echo Build failed!
+title=android [fail]
 exit /b 1
 
 :end
+title=android [done]
