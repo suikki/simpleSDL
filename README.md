@@ -83,5 +83,6 @@ Todo
 
 - Android: arm64-v8a abi is not compiling. Needs to be fixed in SDL_spinlock.c or with
 some kind of compiler switches.
-- Nicer way to include SDL in a project. Prefereably as some kind of library project
+- Nicer way to include SDL in an android project. [A missing android feature](https://issuetracker.google.com/issues/37134163) is needed to include
+prebuilt native library with headers in a .aar package.
 - iOS build
