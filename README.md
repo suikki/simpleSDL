@@ -60,3 +60,4 @@ some kind of compiler switches.
 - Nicer way to include SDL in an android project. [A missing android feature](https://issuetracker.google.com/issues/37134163) is needed to include
 prebuilt native library with headers in a .aar package.
 - iOS build
+- Add instructions how to build on all platforms
