@@ -1,6 +1,5 @@
 
 Copy/clone/symlink dependencies to this dir
 -------------------------------------------
-	Standard SDL2: hg clone http://hg.libsdl.org/SDL
-
-	NOTE: currently android_fixes.patch needs to be applied to SDL for everything to work.
+	 SDL - For example with: hg clone http://hg.libsdl.org/SDL
+	       Note: Currently (2017-06-06) the latest version from mercurial is needed to get working android cmake.
