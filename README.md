@@ -12,6 +12,8 @@ Tested to build and run successfully with:
   - Mac: (Just building a simple executable, no bundle)
   - Emscripten
 
+> NOTE: Currently (2017-06-06) the latest SDL version from mercurial is needed.
+> It has some fresh fixes for gradle+cmake build for android.
 
 
 Building on Android
