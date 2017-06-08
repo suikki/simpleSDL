@@ -4,7 +4,9 @@
 #if defined(ANDROID)
 #include <SDL_opengles2.h>
 #else
+
 #include <SDL_opengl.h>
+
 #endif
 
 #if defined(EMSCRIPTEN)
@@ -19,6 +21,16 @@ static SDL_Window* window = NULL;
 static SDL_GLContext glContext = NULL;
 
 static float blinking = 0.0f;
+
+void blinkerThread(void* data) {
+    while (!done) {
+        blinking += 0.01f;
+        if (blinking > 1.0f) {
+            blinking = 0.0f;
+        }
+        SDL_Delay(10);
+    }
+}
 
 int init() {
     int width = 640;
@@ -45,6 +57,8 @@ int init() {
         return 0;
     }
 
+    SDL_Thread* thread = SDL_CreateThread(blinkerThread, "blinkerThread", (void*)NULL);
+
     printf("Initialized.\n");
     return 1;
 }
@@ -65,11 +79,6 @@ void release() {
 
 void renderFrame() {
     SDL_GL_MakeCurrent(window, glContext);
-
-    blinking += 0.01f;
-    if (blinking > 1.0f) {
-        blinking = 0.0f;
-    }
 
     glClearColor(blinking, blinking, blinking, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
