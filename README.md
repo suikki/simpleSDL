@@ -5,25 +5,25 @@ A simple crossplatform libSDL cmake build environment example/test. This is stil
 work in progress and is missing support for iOS builds.
 
 Tested to build and run successfully with:
-  - Android: ndk-build and gradle+cmake
+  - Android: gradle+cmake
   - Windows: mingw-w64
   - Windows: Visual Studio 2015
   - Linux (Ubuntu): GCC
   - Mac: (Just building a simple executable, no bundle)
   - Emscripten
 
-> NOTE: Currently (2017-06-06) the latest SDL version from mercurial is needed.
-> It has some fresh fixes for gradle+cmake build for android.
-
 
 Building on Android
 -------------------
 
-> NOTE: I had an issue trying to build SDL using the latest NDK (r14) both
-> with ndk-build and gradle (https://github.com/android-ndk/ndk/issues/361).
-> Seems that it's a bug in clang that has been fixed in NDK r15 Beta 2 (that
-> must be currently downloaded manually from the NDK site
-> https://developer.android.com/ndk/downloads/index.html).
+> NOTE:
+>
+> There is an issue trying to build SDL using NDK r14 both with ndk-build
+> and gradle (https://github.com/android-ndk/ndk/issues/361). Make sure you have
+> the latest NDK (r15).
+>
+> Also currently (2017-06-06) the latest SDL version from mercurial is needed.
+> It has some fresh fixes for gradle+cmake build for android.
 
 You need to have NDK and cmake plugins installed on Android SDK
 (https://developer.android.com/studio/projects/add-native-code.html)
