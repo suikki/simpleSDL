@@ -58,6 +58,10 @@ int init() {
     }
 
     SDL_Thread* thread = SDL_CreateThread(blinkerThread, "blinkerThread", (void*)NULL);
+    if (!thread) {
+        printf("\nSDL_CreateThread failed: %s\n", SDL_GetError());
+        SDL_ClearError();
+    }
 
     printf("Initialized.\n");
     return 1;
