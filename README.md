@@ -20,9 +20,9 @@ Building on Android
 >
 > There is an issue trying to build SDL using NDK r14 both with ndk-build
 > and gradle (https://github.com/android-ndk/ndk/issues/361). Make sure you have
-> the latest NDK (r15).
+> the latest NDK (at least r15).
 >
-> Also currently (2017-06-06) the latest SDL version from mercurial is needed.
+> Also currently (2017-09-13) the latest SDL version from mercurial is needed.
 > It has some fresh fixes for gradle+cmake build for android.
 
 You need to have NDK and cmake plugins installed on Android SDK
@@ -57,8 +57,6 @@ to be deleted sometimes, especially when making changes to the build system (bug
 Todo
 ----
 
-- Android: arm64-v8a abi is not compiling. Needs to be fixed in SDL_spinlock.c or with
-some kind of compiler switches.
 - Nicer way to include SDL in an android project. [A missing android feature](https://issuetracker.google.com/issues/37134163) is needed to include
 prebuilt native library with headers in a .aar package.
 - iOS build
