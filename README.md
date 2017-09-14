@@ -5,7 +5,8 @@ A simple crossplatform libSDL cmake build environment example/test. This is stil
 work in progress and is missing support for iOS builds.
 
 Tested to build and run successfully with:
-  - Android: gradle+cmake
+  - Android: gradle + cmake
+  - Android: gradle + ndk-build
   - Windows: mingw-w64
   - Windows: Visual Studio 2015
   - Linux (Ubuntu): GCC
@@ -19,10 +20,10 @@ Building on Android
 > NOTE:
 >
 > There is an issue trying to build SDL using NDK r14 both with ndk-build
-> and gradle (https://github.com/android-ndk/ndk/issues/361). Make sure you have
+> and cmake (https://github.com/android-ndk/ndk/issues/361). Make sure you have
 > the latest NDK (at least r15).
 >
-> Also currently (2017-09-13) the latest SDL version from mercurial is needed.
+> Also currently (2017-09-14) the latest SDL version from mercurial is needed.
 > It has some fresh fixes for gradle+cmake build for android.
 
 You need to have NDK and cmake plugins installed on Android SDK
@@ -38,20 +39,11 @@ You need to have NDK and cmake plugins installed on Android SDK
    to open the `platforms/android/` dir. Android studio can also
    open the root dir but it's not recognized as an android project.
 
-The included android project is pretty much what current Android Studio
+The project include two versions of the same app. One is built using the old ndk-build system and the other one is using cmake.
+
+The included android gradle cmake project is pretty much what current Android Studio
 generates when you create a new empty app with native cmake support. Just
 pointing to the CmakeLists.txt in the project root.
-
-
-
-Notes
------
-
-- All build artifacts are set to go to `.build` dir except for `.externalNativeBuild`
-that is created by the android gradle cmake to `platforms/android/app`.
-There is no way to change its location currently and it seems that the dir needs
-to be deleted sometimes, especially when making changes to the build system (bug
-  https://issuetracker.google.com/issues/62264618).
 
 
 Todo
@@ -59,5 +51,8 @@ Todo
 
 - Nicer way to include SDL in an android project. [A missing android feature](https://issuetracker.google.com/issues/37134163) is needed to include
 prebuilt native library with headers in a .aar package.
+- It would be nicer if all the android build artifacts are set to go to `.build` dir, but
+there is no way to change the location of .externalNativeBuild currently (bug
+  https://issuetracker.google.com/issues/62264618).
 - iOS build
 - Add instructions how to build on all platforms

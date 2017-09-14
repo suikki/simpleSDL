@@ -1,7 +1,6 @@
 @echo off
 setlocal
-set PROJECT_DIR=%~dp0
-
+set PROJECT_DIR=%~dp0\..
 set BUILD_DIR=%PROJECT_DIR%\platforms\windows_vs14_win64
 set CMAKE_EXE=cmake.exe
 

@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title=mingw [building]
-set PROJECT_DIR=%~dp0
+set PROJECT_DIR=%~dp0\..
 set BUILD_DIR=%PROJECT_DIR%\.build\win32_mingw_make
 
 :: Setup the build environment

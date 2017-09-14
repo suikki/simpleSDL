@@ -1,1 +1,1 @@
-include ':app'
+include ':android-app-cmake', 'android-app-ndkbuild'

@@ -7,6 +7,12 @@
 #include <SDL_opengl.h>
 #endif
 
+#if defined(ANDROID)
+// Just rerouting printf to logcat on android (not a complete logging solution).
+#include <android/log.h>
+#define printf(...) __android_log_print(ANDROID_LOG_INFO, "SIMPLE_EXAMPLE", __VA_ARGS__)
+#endif
+
 #if defined(EMSCRIPTEN)
 #include <emscripten.h>
 #endif
@@ -81,6 +87,7 @@ void mainLoop() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
+            printf("Event: SDL_QUIT\n");
             done = 1;
         }
     }

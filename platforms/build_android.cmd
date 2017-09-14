@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title=android [building]
-set PROJECT_DIR=%~dp0
+set PROJECT_DIR=%~dp0\..
 set PLATFORM_DIR=%PROJECT_DIR%\platforms\android
 
 :: USAGE:

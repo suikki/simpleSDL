@@ -1,7 +1,7 @@
 @echo off
 setlocal
 title=emscripten [building]
-set PROJECT_DIR=%~dp0
+set PROJECT_DIR=%~dp0\..
 set BUILD_DIR=%PROJECT_DIR%\.build\emscripten
 
 :: Setup the build environment

@@ -9,24 +9,12 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        externalNativeBuild {
-
-            cmake {
-                //cppFlags "-std=c++11 -frtti -fexceptions"
-                //cFlags "-Wa,-mimplicit-it=thumb"
-                //arguments "-DANDROID_TOOLCHAIN=gcc"
-            }
-            
-        }
 
         ndk {
-            abiFilters "armeabi", "armeabi-v7a", "x86", "x86_64"
+            //abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
 
-            // NOTE: "arm64-v8a" is not currently supported by SDL:
-            //       SDL\src\atomic\SDL_spinlock.c:101:2: error: Please implement for your platform.
-
-            // Limiting to some ABIs to save time while testing
+            // Limiting to a smaller set of  ABIs to save time while testing:
+            abiFilters "x86", "armeabi-v7a"
             //abiFilters "armeabi"
             //abiFilters "armeabi-v7a"
             //abiFilters "arm64-v8a"
@@ -41,8 +29,8 @@ android {
         }
     }
     externalNativeBuild {
-        cmake {
-            path "../../../CMakeLists.txt"
+        ndkBuild {
+            path "Android.mk"
         }
     }
 }
