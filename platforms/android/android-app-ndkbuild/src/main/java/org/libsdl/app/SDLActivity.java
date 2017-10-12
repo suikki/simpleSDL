@@ -231,6 +231,19 @@ public class SDLActivity extends Activity {
         mSurface = new SDLSurface(getApplication());
 
         mLayout = new RelativeLayout(this);
+
+        //
+        // Just a test UI component that will be shown on the background.
+        //
+        Button myButton = new Button(this);
+        myButton.setBackgroundColor(0x4f00ff00);
+        myButton.setLayoutParams(new RelativeLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+        myButton.setLeft(10);
+        myButton.setText("ASFASASFDASDFAFSDFFDAS");
+
+        mLayout.addView(myButton);
         mLayout.addView(mSurface);
 
         setContentView(mLayout);
@@ -1285,6 +1298,8 @@ class SDLSurface extends SurfaceView implements SurfaceHolder.Callback,
     public SDLSurface(Context context) {
         super(context);
         getHolder().addCallback(this);
+        setZOrderOnTop(true);
+        getHolder().setFormat(PixelFormat.RGBA_8888);
 
         setFocusable(true);
         setFocusableInTouchMode(true);
