@@ -22,9 +22,9 @@ LOCAL_C_INCLUDES +=  \
 
 # Source files
 LOCAL_SRC_FILES :=  \
-  $(LOCAL_PATH)/../../../source/main.c
+  ../../../source/main.c
 
-  
+
 # Linking options
 LOCAL_SHARED_LIBRARIES := SDL2
 #LOCAL_SHARED_LIBRARIES := SDL2 SDL2_image
