@@ -23,8 +23,8 @@ Building on Android
 > and cmake (https://github.com/android-ndk/ndk/issues/361). Make sure you have
 > the latest NDK (at least r15).
 >
-> Also currently (2017-09-14) the latest SDL version from mercurial is needed.
-> It has some fresh fixes for gradle+cmake build for android.
+> Also currently (2018-02-25) the latest SDL version from mercurial is needed.
+> It has some fixes for gradle+cmake build for android.
 
 You need to have NDK and cmake plugins installed on Android SDK
 (https://developer.android.com/studio/projects/add-native-code.html)
