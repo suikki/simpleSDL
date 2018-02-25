@@ -22,7 +22,7 @@ allprojects {
     }
 
     // Using one top level build dir for all build related files to reduce clutter.
-    buildDir = file("${rootDir.absolutePath}/.build/${project.name}")
+    buildDir = file("${rootDir.absolutePath}/build/${project.name}")
 }
 
 task clean(type: Delete) {

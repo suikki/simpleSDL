@@ -39,11 +39,17 @@ You need to have NDK and cmake plugins installed on Android SDK
    to open the `platforms/android/` dir. Android studio can also
    open the root dir but it's not recognized as an android project.
 
-The project include two versions of the same app. One is built using the old ndk-build system and the other one is using cmake.
+The project includes two versions of the same app. One is built using the old ndk-build system and the other one is using cmake.
 
 The included android gradle cmake project is pretty much what current Android Studio
 generates when you create a new empty app with native cmake support. Just
 pointing to the CmakeLists.txt in the project root.
+
+> NOTE:
+>
+> Currently the SDL2 Android Java code is included in this project. This is not a very good system
+> as it easily leads to the SDL Java and native code being out of sync (i.e. code from different versions of SDL).
+> You should replace the Java sources from the version of SDL you are using to make sure they are from the same version.
 
 
 Todo
@@ -51,8 +57,5 @@ Todo
 
 - Nicer way to include SDL in an android project. [A missing android feature](https://issuetracker.google.com/issues/37134163) is needed to include
 prebuilt native library with headers in a .aar package.
-- It would be nicer if all the android build artifacts are set to go to `.build` dir, but
-there is no way to change the location of .externalNativeBuild currently (bug
-  https://issuetracker.google.com/issues/62264618).
 - iOS build
 - Add instructions how to build on all platforms

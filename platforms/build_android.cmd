@@ -1,6 +1,5 @@
 @echo off
 setlocal
-title=android [building]
 set PROJECT_DIR=%~dp0\..
 set PLATFORM_DIR=%PROJECT_DIR%\platforms\android
 
@@ -28,8 +27,6 @@ goto end
 
 :error
 echo Build failed!
-title=android [fail]
 exit /b 1
 
 :end
-title=android [done]
