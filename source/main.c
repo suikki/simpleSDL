@@ -31,6 +31,10 @@ int init() {
     int height = 480;
     Uint32 flags = SDL_WINDOW_OPENGL;
 
+#if defined(ANDROID)
+    flags |= SDL_WINDOW_FULLSCREEN;
+#endif
+
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0) {
         printf("SDL init failed: %s\n", SDL_GetError());
         SDL_ClearError();
