@@ -16,15 +16,6 @@ Tested to build and run successfully with:
 Building on Android
 -------------------
 
-> NOTE:
->
-> There is an issue trying to build SDL using NDK r14 both with ndk-build
-> and cmake (https://github.com/android-ndk/ndk/issues/361). Make sure you have
-> the latest NDK (at least r15).
->
-> Also currently (2018-02-25) the latest SDL version from mercurial is needed.
-> It has some fixes for gradle+cmake build for android.
-
 You need to have NDK and cmake plugins installed on Android SDK
 (https://developer.android.com/studio/projects/add-native-code.html)
 
@@ -38,9 +29,7 @@ You need to have NDK and cmake plugins installed on Android SDK
    to open the `platforms/android/` dir. Android studio can also
    open the root dir but it's not recognized as an android project.
 
-The project includes two versions of the same app. One is built using the old ndk-build system and the other one is using cmake.
-
-The included android gradle cmake project is pretty much what current Android Studio
+The included android gradle cmake project is pretty much what Android Studio
 generates when you create a new empty app with native cmake support. Just
 pointing to the CmakeLists.txt in the project root.
 

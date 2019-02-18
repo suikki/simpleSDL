@@ -32,6 +32,9 @@ set(SDL2MAIN_LIBRARY SDL2main)
 set(SDL2_LIBRARY SDL2)
 
 
+# Joysticks were causing trouble on android.
+add_definitions(-DSDL_JOYSTICK=0)
+
 #
 # Sources (relative to the project root dir).
 #
