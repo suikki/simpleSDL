@@ -38,9 +38,11 @@ add_definitions(-DSDL_JOYSTICK=0)
 #
 # Sources (relative to the project root dir).
 #
-file(GLOB_RECURSE projectSources RELATIVE ${projectDir}
-  "${sourceDir}/*.h"
-  "${sourceDir}/*.c"
+set(projectSources
+  source/main.c
+
+  # Use this instead for an opengl example
+  #source/main_opengl.c
 )
 
 # Include dirs.
@@ -74,6 +76,9 @@ endif()
 if(EMSCRIPTEN)
   # This makes emscripten build a html page in addition to the js code.
   set(CMAKE_EXECUTABLE_SUFFIX ".html")
+
+  # Embedding and mapping files at from_path@to_path
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --preload-file ../../assets@/")
 
   # Emscripten requires static linking.
   set(SDL2_LIBRARY SDL2-static)

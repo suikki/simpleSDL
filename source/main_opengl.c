@@ -1,31 +1,27 @@
 
 #include <SDL.h>
 
+#if defined(__ANDROID__)
+#include <SDL_opengles2.h>
+#else
+#include <SDL_opengl.h>
+#endif
+
 #if defined(EMSCRIPTEN)
 #include <emscripten.h>
 #endif
 
+
 static int done = 0;
 static SDL_Window* window = NULL;
-static SDL_Renderer* renderer = NULL;
+static SDL_GLContext glContext = NULL;
 
-static SDL_Texture* texture = NULL;
-
-/*
-On android (in SDL) relative paths point to the root of the assets dir
-On desktop we are assuming that the working dir is the location of the
-executable (bin/<buildtype>). So assests are in ../../assets/.
-*/
-#if defined(__ANDROID__) || defined(EMSCRIPTEN)
-#define ASSET_PATH ""
-#else
-#define ASSET_PATH "../../assets/"
-#endif
+static float blinking = 0.0f;
 
 int init() {
     int width = 640;
     int height = 480;
-    Uint32 flags = 0;
+    Uint32 flags = SDL_WINDOW_OPENGL;
 
 #if defined(__ANDROID__)
     flags |= SDL_WINDOW_FULLSCREEN;
@@ -44,24 +40,9 @@ int init() {
         return 0;
     }
 
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (!renderer) {
-        SDL_Log("Creating renderer failed: %s", SDL_GetError());
-        SDL_ClearError();
-        return 0;
-    }
-
-    const char* fileName = ASSET_PATH "sdl.bmp";
-    SDL_Surface* bitmap = SDL_LoadBMP(fileName);
-    if (!bitmap) {
-        SDL_Log("Loading bitmap '%s' failed: %s", fileName, SDL_GetError());
-        SDL_ClearError();
-        return 0;
-    }
-    texture = SDL_CreateTextureFromSurface(renderer, bitmap);
-    SDL_FreeSurface(bitmap);
-    if (!texture) {
-        SDL_Log("Creating texture failed: %s", SDL_GetError());
+    glContext = SDL_GL_CreateContext(window);
+    if (!glContext) {
+        SDL_Log("Creating GL context failed: '%s'.", SDL_GetError());
         SDL_ClearError();
         return 0;
     }
@@ -71,14 +52,9 @@ int init() {
 }
 
 void release() {
-    if (texture) {
-        SDL_DestroyTexture(texture);
-        texture = 0;
-    }
-
-    if (renderer) {
-        SDL_DestroyRenderer(renderer);
-        renderer = 0;
+    if (glContext) {
+        SDL_GL_DeleteContext(glContext);
+        glContext = 0;
     }
 
     if (window) {
@@ -90,10 +66,17 @@ void release() {
 }
 
 void renderFrame() {
-    SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, texture, NULL, NULL);
+    SDL_GL_MakeCurrent(window, glContext);
 
-    SDL_RenderPresent(renderer);
+    blinking += 0.01f;
+    if (blinking > 1.0f) {
+        blinking = 0.0f;
+    }
+
+    glClearColor(blinking, blinking, blinking, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    SDL_GL_SwapWindow(window);
 }
 
 void mainLoop() {
