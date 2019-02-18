@@ -6,7 +6,6 @@ work in progress and is missing support for iOS builds.
 
 Tested to build and run successfully with:
   - Android: gradle + cmake
-  - Android: gradle + ndk-build
   - Windows: mingw-w64
   - Windows: Visual Studio 2015
   - Linux (Ubuntu): GCC
